@@ -1,5 +1,7 @@
 const path = require("path");
-const htmpWebpackPlugin = require('html-webpack-plugin')
+const htmpWebpackPlugin = require('html-webpack-plugin');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     entry: {
         index: "./src/index.js",
@@ -41,6 +43,15 @@ module.exports = {
             chunks: ["courses"], // array of names for bunddled
             inject: true,
             filename: "courses.html"//entry filename string
+        }),
+        new copyWebpackPlugin({ //is use to easily copy files from project to dist
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "./src/assets/images/*"),
+                    to: path.resolve(__dirname, "dist"),
+                    context:"src"
+                }
+            ]
         })
     ]
 };
