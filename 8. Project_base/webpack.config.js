@@ -2,6 +2,8 @@ const path = require("path");
 const htmpWebpackPlugin = require("html-webpack-plugin");
 const copyWebpackPlugin = require("copy-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 module.exports = {
     entry: {
@@ -9,7 +11,7 @@ module.exports = {
         courses: "./src/pages/courses.js",
     },
     output: {
-        filename: "[name].bundle.js",
+        filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
     },
@@ -20,11 +22,11 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader"],
+                use: [miniCssExtractPlugin.loader, "css-loader"],
             },
             {
                 test: /\.s[ac]ss$/,
-                use: ["style-loader", "css-loader", "sass-loader"],
+                use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
             {
                 test: /\.(png|jpeg|jpg|gif)$/,
@@ -33,6 +35,10 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            mnt: "moment",
+            $: "jquery",
+        }),
         new htmpWebpackPlugin({
             template: path.resolve(__dirname, "./src/index.html"), //path of html file which need to be bundled
             chunks: ["index"], // array of names for bunddled
@@ -55,11 +61,12 @@ module.exports = {
                 },
             ],
         }),
-        new BundleAnalyzerPlugin({}),
+        new miniCssExtractPlugin({}),
+        // new BundleAnalyzerPlugin({}),
     ],
     optimization: {
         splitChunks: {
-            chunks:"all"
+            chunks: "all",
         },
     },
 };

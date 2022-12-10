@@ -1,4 +1,3 @@
-import $ from "jquery";
 import _ from "lodash";
 import bootstrap from "bootstrap";
 import Typed from "typed.js";
@@ -8,7 +7,14 @@ import toastr from "toastr";
 import './index.css';
 import './_vender.scss';
 
+import { showDate } from "./libs/showDate";
+
+//will use it to import dynamically
+//import showModal from "./components/modal";
+
 // import banner from './assets/banner-image.png'
+
+showDate()
 
 const footerCol1Items = ["Home", "About", "Contact us", "FAQ", "Blog"];
 const footerCol2Items = ["Flutter", "Javascript", "Java", "Nodejs", "Python"];
@@ -61,3 +67,11 @@ buildFooterItems(footerCol3, footerCol3Items);
 
 // const bannerEl = $('#banner-image')[0] 
 // bannerEl.src = banner
+
+$("#pricing-plan").on("click", function () {
+  import (/* webpackChunkName: "modal"*/ "./components/modal").then((module)=>{
+    const showModal = module.default;
+    showModal();
+    $("#myModal").css("display", "block");
+  })
+});

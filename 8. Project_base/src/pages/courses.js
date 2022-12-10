@@ -1,5 +1,4 @@
 import bootstrap from 'bootstrap';
-import $ from 'jquery';
 import typed from 'typed.js';
 import validate from 'validate.js';
 import toastr from 'toastr';
