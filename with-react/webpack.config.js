@@ -18,6 +18,7 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html",
     }),
+    new miniCssExtractPlugin(),
   ],
   devServer: {
     static: {
@@ -26,20 +27,46 @@ module.exports = {
     port: 9000,
     open: true, //like we added in package.json
   },
-  module:{
+  module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, "src"),
+        exclude: path.resolve(__dirname, "node_modules"),
+        use: [
+          {
+            loader: "babel-loader", //added babel loader to make webpack understand JXS
+            options: {
+              presets: [ //required for babel loader configurations
+                [
+                  "@babel/preset-env",
+                  {
+                    targets: "defaults",
+                  },
+                ],
+                "@babel/preset-react",
+              ],
+            },
+          },
+        ]
+      },
+        {
           test: /\.css$/,
           use: [miniCssExtractPlugin.loader, "css-loader"],
-      },
-      {
+        },
+        {
           test: /\.s[ac]ss$/,
           use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-      {
-        test: /\.(png|jpeg|jpg|gif)$/,
-        type: "asset/resource", //in-built loader
+        },
+        {
+          test: /\.(png|jpeg|jpg|gif)$/,
+          type: "asset/resource", //in-built loader
+        },
+    ],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
     },
-  ],
-  }
+  },
 }
