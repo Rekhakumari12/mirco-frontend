@@ -1,8 +1,13 @@
 @import url('./assets/css/font-awesome.min.css');
 
+.dummy-css {
+  background-color: yellow;
+}
+
+
 .icon-background {
   background: rgb(151, 68, 240);
-  background: radial-gradient(
+  background: radial -gradient(
     circle,
     rgba(151, 68, 240, 1) 0%,
     rgba(84, 66, 105, 1) 100%

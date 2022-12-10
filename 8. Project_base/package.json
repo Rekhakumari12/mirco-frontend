@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --config webpack.config.js --mode development",
-    "serve": "webpack serve --config webpack.config.js  --mode development"
+    "dev": "webpack --config webpack.dev.js",
+    "prod": "webpack --config webpack.prod.js",
+    "serve": "webpack serve --config webpack.dev.js --open"
   },
   "author": "",
   "license": "ISC",
@@ -19,12 +20,15 @@
     "toastr": "^2.1.4",
     "typed.js": "^2.0.12",
     "validate.js": "^0.13.1",
-    "webpack-bundle-analyzer": "^4.7.0"
+    "webpack-bundle-analyzer": "^4.7.0",
+    "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.6.0",
+    "glob": "^8.0.3",
     "html-webpack-plugin": "^5.5.0",
+    "purgecss-webpack-plugin": "^5.0.0",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",

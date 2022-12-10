@@ -4,6 +4,13 @@ const copyWebpackPlugin = require("copy-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
+const glob = require("glob");
+const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+
+//purgePath for removing dead css
+const PATHS = {
+    src: path.join(__dirname, 'src')
+}
 
 module.exports = {
     entry: {
@@ -15,19 +22,8 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         clean: true,
     },
-    devServer: {
-        static: "./dist",
-    },
     module: {
         rules: [
-            {
-                test: /\.css$/,
-                use: [miniCssExtractPlugin.loader, "css-loader"],
-            },
-            {
-                test: /\.s[ac]ss$/,
-                use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-            },
             {
                 test: /\.(png|jpeg|jpg|gif)$/,
                 type: "asset/resource",
@@ -51,18 +47,6 @@ module.exports = {
             inject: true,
             filename: "courses.html", //entry filename string
         }),
-        new copyWebpackPlugin({
-            //is use to easily copy files from project to dist
-            patterns: [
-                {
-                    from: path.resolve(__dirname, "./src/assets/images/*"),
-                    to: path.resolve(__dirname, "dist"),
-                    context: "src",
-                },
-            ],
-        }),
-        new miniCssExtractPlugin({}),
-        // new BundleAnalyzerPlugin({}),
     ],
     optimization: {
         splitChunks: {
