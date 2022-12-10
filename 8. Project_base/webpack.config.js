@@ -1,6 +1,7 @@
 const path = require("path");
-const htmpWebpackPlugin = require('html-webpack-plugin');
-const copyWebpackPlugin = require('copy-webpack-plugin');
+const htmpWebpackPlugin = require("html-webpack-plugin");
+const copyWebpackPlugin = require("copy-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
     entry: {
@@ -12,8 +13,8 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         clean: true,
     },
-    devServer:{
-        static: "./dist"
+    devServer: {
+        static: "./dist",
     },
     module: {
         rules: [
@@ -31,27 +32,34 @@ module.exports = {
             },
         ],
     },
-    plugins :[
+    plugins: [
         new htmpWebpackPlugin({
             template: path.resolve(__dirname, "./src/index.html"), //path of html file which need to be bundled
             chunks: ["index"], // array of names for bunddled
             inject: true,
-            filename: "index.html"//entry filename string
+            filename: "index.html", //entry filename string
         }),
         new htmpWebpackPlugin({
             template: path.resolve(__dirname, "./src/pages/courses.html"), //path of html file which need to be bundled
             chunks: ["courses"], // array of names for bunddled
             inject: true,
-            filename: "courses.html"//entry filename string
+            filename: "courses.html", //entry filename string
         }),
-        new copyWebpackPlugin({ //is use to easily copy files from project to dist
+        new copyWebpackPlugin({
+            //is use to easily copy files from project to dist
             patterns: [
                 {
                     from: path.resolve(__dirname, "./src/assets/images/*"),
                     to: path.resolve(__dirname, "dist"),
-                    context:"src"
-                }
-            ]
-        })
-    ]
+                    context: "src",
+                },
+            ],
+        }),
+        new BundleAnalyzerPlugin({}),
+    ],
+    optimization: {
+        splitChunks: {
+            chunks:"all"
+        },
+    },
 };

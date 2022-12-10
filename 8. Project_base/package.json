@@ -8,7 +8,6 @@
     "dev": "webpack --config webpack.config.js --mode development",
     "serve": "webpack serve --config webpack.config.js  --mode development"
   },
-  
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,7 +16,8 @@
     "lodash": "^4.17.21",
     "toastr": "^2.1.4",
     "typed.js": "^2.0.12",
-    "validate.js": "^0.13.1"
+    "validate.js": "^0.13.1",
+    "webpack-bundle-analyzer": "^4.7.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
