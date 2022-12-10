@@ -26,6 +26,7 @@ module.exports = {
     },
     port: 9000,
     open: true, //like we added in package.json
+    historyApiFallback: true, //to make work browser's back and forward arrows, it tells webpack that our routing manage by client-side by react so do not try to make server call for it
   },
   module: {
     rules: [
@@ -50,18 +51,37 @@ module.exports = {
           },
         ]
       },
+      {
+        test: /\.css$/,
+        use: [
+          miniCssExtractPlugin.loader, "css-loader",
         {
-          test: /\.css$/,
-          use: [miniCssExtractPlugin.loader, "css-loader"],
+          loader: "postcss-loader", //to add some css polyfils to supports on diff browsers, we use this loader
+          options: {
+            postcssOptions: {
+              plugins: [["postcss-preset-env", {}]],
+            },
+          },
         },
+        ],
+      },
+      {
+        test: /\.s[ac]ss$/,
+        use: [miniCssExtractPlugin.loader, "css-loader", 
         {
-          test: /\.s[ac]ss$/,
-          use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+          loader: "postcss-loader", //to add some css polyfils to supports on diff browsers, we use this loader
+          options: {
+            postcssOptions: {
+              plugins: [["postcss-preset-env", {}]],
+            },
+          },
         },
-        {
-          test: /\.(png|jpeg|jpg|gif)$/,
-          type: "asset/resource", //in-built loader
-        },
+          "sass-loader"],
+      },
+      {
+        test: /\.(png|jpeg|jpg|gif)$/,
+        type: "asset/resource", //in-built loader
+      },
     ],
   },
   optimization: {
