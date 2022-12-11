@@ -31,6 +31,9 @@ module.exports = {
       remotes: {
         //key name could be anything but value should be correct
         components: "components@http://localhost:3002/remoteEntry.js"
+      },
+      exposes: {
+        "./HomePage": "./src/components/HomeContent/HomeContent.jsx",
       }
     })
   ],
