@@ -11,7 +11,7 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-  plugins: [ 
+  plugins: [
     new EsLintPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
@@ -60,19 +60,19 @@ module.exports = {
         test: /\.css$/,
         use: [
           miniCssExtractPlugin.loader, "css-loader",
-        {
-          loader: "postcss-loader", //to add some css polyfils to supports on diff browsers, we use this loader
-          options: {
-            postcssOptions: {
-              plugins: [["postcss-preset-env", {}]],
+          {
+            loader: "postcss-loader", //to add some css polyfils to supports on diff browsers, we use this loader
+            options: {
+              postcssOptions: {
+                plugins: [["postcss-preset-env", {}]],
+              },
             },
           },
-        },
         ],
       },
       {
         test: /\.s[ac]ss$/,
-        use: [miniCssExtractPlugin.loader, "css-loader", 
+        use: [miniCssExtractPlugin.loader, "css-loader",
         {
           loader: "postcss-loader", //to add some css polyfils to supports on diff browsers, we use this loader
           options: {
