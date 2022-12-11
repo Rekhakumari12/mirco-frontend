@@ -30,7 +30,7 @@ App.get("/movies/:id", (req, res) => {
           console.log("File sent to client");
         }
       });
-    }
+    } 
   });
   
 });
