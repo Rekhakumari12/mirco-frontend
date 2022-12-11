@@ -30,7 +30,7 @@ const DetailsContent = (props) => {
       movie: movie.id,
       date,
       time,
-    };   
+    };
   };
 
   return (
