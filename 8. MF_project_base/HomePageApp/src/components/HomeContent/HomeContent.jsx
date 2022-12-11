@@ -1,10 +1,9 @@
 import React, { Suspense, useEffect, useState } from "react";
 import QuickBooking from "../QuickBooking/QuickBooking.jsx";
-
-//dynamically load remote components
-const MovieCard = React.lazy(() => import("components/MovieCard"))
-
 import "./HomeContent.scss";
+import RoutingContext from '../../utils/RoutingProvider'
+const MovieCard = React.lazy(() => import("components/MovieCard")) //dynamically load remote components
+
 
 const dummyItem = [{ name: "Dummy Movie" }]
 
@@ -37,12 +36,14 @@ const HomeContent = (props) => {
 
   return (
     <div className="home-content-container">
-      <QuickBooking></QuickBooking>
-      <div className="movies-container">
-        <Suspense fallback={'Loading..'}>
-          {renderMovieList()}
-        </Suspense>
-      </div>
+      <RoutingContext.Provider value={props.routing}>
+        <QuickBooking></QuickBooking>
+        <div className="movies-container">
+          <Suspense fallback={'Loading..'}>
+            {renderMovieList()}
+          </Suspense>
+        </div>
+      </RoutingContext.Provider>
     </div>
   );
 };

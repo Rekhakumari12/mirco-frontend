@@ -30,7 +30,8 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {
         //key name could be anything but value should be correct
-        components: "components@http://localhost:3002/remoteEntry.js"
+        components: "components@http://localhost:3002/remoteEntry.js",
+        movieapp: "movieapp@http://localhost:9000/remoteEntry.js",
       },
       exposes: {
         "./HomePage": "./src/components/HomeContent/HomeContent.jsx",

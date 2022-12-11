@@ -1,22 +1,25 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useContext } from "react";
 import "./QuickBooking.scss";
-
-//dynamically load remote components
-const Typography = React.lazy(() => import("components/Typography"))
-
+import RoutingContext from '../../utils/RoutingProvider'
+const Typography = React.lazy(() => import("components/Typography")) //dynamically load remote components
 
 const QuickBooking = () => {
   const [movie, setMovie] = useState("1");
   const [date, setDate] = useState("01/02/2022");
   const [time, setTime] = useState("10 Am");
-
-  const bookMovie = () => {
+  const context = useContext(RoutingContext);
+  const bookMovie = (context) => {
     const booking = {
       movie,
       date,
       time,
     };
-    console.log(booking);
+    import("movieapp/MovieData").then((module) => {
+      const movieData = module.default;
+      //passing/publish data to the observal
+      movieData.next(booking);
+    });
+    context.history.push("book");
   };
 
   return (
@@ -30,15 +33,15 @@ const QuickBooking = () => {
         <span>Select Movie</span>
         <select onChange={(e) => setMovie(e.target.value)} value={movie}>
           <option value="1">Avengers End Game</option>
-          <option value="2">Spiderman</option>
-          <option value="3">IronMan</option>
-          <option value="4">Doctor Strange</option>
-          <option value="5">Black Panther</option>
-          <option value="6">Thor</option>
-          <option value="7">Captain America</option>
-          <option value="8">Black Widow</option>
-          <option value="9">Venom</option>
-          <option value="10">Ethernals</option>
+          <option value="8">Spiderman</option>
+          <option value="7">IronMan</option>
+          <option value="5">Doctor Strange</option>
+          <option value="2">Black Panther</option>
+          <option value="9">Thor</option>
+          <option value="4">Captain America</option>
+          <option value="3">Black Widow</option>
+          <option value="10">Venom</option>
+          <option value="6">Eternals</option>
         </select>
       </div>
       <div className="mr-1">
@@ -62,7 +65,7 @@ const QuickBooking = () => {
           <option value="9:30 PM">9:30 PM</option>
         </select>
       </div>
-      <button onClick={() => bookMovie()}>Book</button>
+      <button onClick={() => bookMovie(context)}>Book</button>
     </div>
   );
 };
