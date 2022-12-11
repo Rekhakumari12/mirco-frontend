@@ -27,7 +27,7 @@ const App = () => {
       </Route>
       <Route path="/">
         <Suspense fallback={'loading.. '}>
-          <Homepage movieClicked={movieClicked} />
+          <Homepage movieClicked={movieClicked} routing={{ location, history }} />
         </Suspense>
       </Route>
     </Switch>
