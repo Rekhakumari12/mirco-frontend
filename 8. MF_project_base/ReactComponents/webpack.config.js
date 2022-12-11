@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { ModuleFederationPlugin } = require("webpack").container
+const { ModuleFederationPlugin } = require("webpack").container;
 
 const path = require("path");
 
@@ -19,21 +19,23 @@ module.exports = {
     port: 3002,
   },
   plugins: [
+    new ModuleFederationPlugin({
+      name: "components",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./MovieCard": "./src/components/MovieCard/MovieCard.jsx",
+        "./BuyButton": "./src/components/Button/BuyButton/BuyButton.jsx",
+        "./Typography": "./src/components/Typography/Typography.jsx"
+      }
+    }),
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "index.html",
-    }), 
-    new ModuleFederationPlugin({
-      name:"components",
-      filename:"remoteEntry.js",
-      exposes: {
-        "./MovieCard": "./src/components/MovieCard/MovieCard.jsx",
-        "./BuyButton": "./src/components/Button/BuyButton/BuyButton.jsx"
-      }
-    })   
+    }),
+
   ],
-  module: { 
+  module: {
     rules: [
       {
         test: /\.(jsx|js)$/,
