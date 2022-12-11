@@ -34,7 +34,8 @@ module.exports = {
       },
       exposes: {
         "./HomePage": "./src/components/HomeContent/HomeContent.jsx",
-      }
+      },
+      shared: ["react", "react-dom"]
     })
   ],
   module: {
