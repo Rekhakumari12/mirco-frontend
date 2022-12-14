@@ -31,6 +31,13 @@ const DetailsContent = (props) => {
       date,
       time,
     };
+
+    import('movieapp/MovieData').then((module) => {
+      const movieData = module.default
+      movieData.next(booking)
+
+      props.routing.history.push("/book")
+    })
   };
 
   return (
