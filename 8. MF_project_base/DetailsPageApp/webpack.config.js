@@ -31,7 +31,7 @@ module.exports = {
       exposes: {
         "./DetailsPage": "./src/components/DetailsContent/DetailsContent.jsx"
       },
-      remotes: {
+      remotes: { //remote means consuming module
         movieapp: "movieapp@http://localhost:9000/remoteEntry.js",
       },
       shared: ["react", "react-dom"]
